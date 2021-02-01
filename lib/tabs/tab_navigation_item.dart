@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_workshop/favorite.dart';
 import 'package:flutter_workshop/home.dart';
 import 'package:flutter_workshop/profile.dart';
+import '../user_list.screen.dart';
 
 class TabNavigationItem {
   final Widget screen;
@@ -21,10 +22,15 @@ class TabNavigationItem {
       label: 'Home',
     ),
     TabNavigationItem(
-      screen: Favorite(),
-      icon: Icon(Icons.shopping_basket),
-      label: 'Shop',
+      screen: UserListScreen(),
+      icon: Icon(Icons.people),
+      label: 'User',
     ),
+    // TabNavigationItem(
+    //   screen: Favorite(),
+    //   icon: Icon(Icons.favorite),
+    //   label: 'Favorite',
+    // ),
     TabNavigationItem(
       screen: Profile(),
       icon: Icon(Icons.person),
