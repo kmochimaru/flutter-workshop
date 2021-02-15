@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_workshop/services/auth.service.dart';
 import 'package:flutter_workshop/tabs/tab_screen.dart';
 
 class Login extends StatefulWidget {
@@ -28,10 +29,15 @@ class _LoginState extends State<Login> {
           ),
           RaisedButton(
             child: Text('Sign In'),
-              onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => TabScreen())
-              )
+              onPressed: () {
+                AuthService().onLogin('test', '1234').then((response) {
+                  print(response);
+                });
+                // Navigator.push(
+                //     context,
+                //     MaterialPageRoute(builder: (context) => TabScreen())
+                // );
+              }
           ),
         ],
       ),
