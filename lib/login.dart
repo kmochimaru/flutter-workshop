@@ -54,10 +54,9 @@ class _LoginState extends State<Login> {
               child: Text('Sign In'),
                 onPressed: () {
                   this._formKey.currentState.save();
-                  print(this._formKey.currentState.validate());
                   if (this._formKey.currentState.validate()) {
                     AuthService().onLogin(this._usernameController.text, this._passwordController.text).then((response) {
-                      print(response);
+                      AuthService().setToken(response);
                       Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => TabScreen())
