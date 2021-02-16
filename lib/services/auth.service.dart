@@ -12,6 +12,9 @@ class AuthService {
         headers: headers,
         body: convert.jsonEncode({'username': username, 'password': password}));
 
+    print(response.body);
+    print(response.statusCode);
+
     if (response.statusCode == 200) {
       return convert.jsonDecode(response.body)['access_token'];
     }
