@@ -10,12 +10,14 @@ class AuthService {
 
   Future<String> onLogin(String username, String password) async {
     var headers = {HttpHeaders.contentTypeHeader: 'application/json'};
-    var response = await http.post('$url/login',
+    var response = await http.post(Uri.parse('$url/login'),
         headers: headers,
         body: convert.jsonEncode({'username': username, 'password': password}));
 
     if (response.statusCode == 200) {
       return convert.jsonDecode(response.body)['access_token'];
+    } else {
+      return '';
     }
   }
 
@@ -23,7 +25,7 @@ class AuthService {
     _storage.write(key: 'remember', value: check);
   }
 
-  Future<String> getRemember() async {
+  Future<String?> getRemember() async {
     return await _storage.read(key: 'remember');
   }
 
@@ -35,17 +37,17 @@ class AuthService {
     _storage.deleteAll();
   }
 
-  Future<String> getToken() async {
+  Future<String?> getToken() async {
     return await _storage.read(key: 'token');
   }
 
   Future decodeToken() async {
-    return this._parseJwt(await this.getToken());
+    return this._parseJwt((await this.getToken())!);
   }
 
   Future<String> decodeUserId() async {
     var token = await this.getToken();
-    return this._parseJwt(token)['_id'];
+    return this._parseJwt(token!)['user_id'];
   }
 
   Map<String, dynamic> _parseJwt(String token) {
@@ -78,5 +80,6 @@ class AuthService {
       default:
         throw Exception('Illegal base64url string!"');
     }
+    return output;
   }
 }

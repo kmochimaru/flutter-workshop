@@ -1,10 +1,10 @@
 class UserModel {
-  int userId;
-  String username;
-  String password;
-  String userAvatar;
-  String userPhoneNumber;
-  String userEmail;
+  int? userId;
+  String? username;
+  String? password;
+  String? userAvatar;
+  String? userPhoneNumber;
+  String? userEmail;
 
   UserModel(
       {this.userId,

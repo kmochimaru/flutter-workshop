@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_workshop/models/user.model.ts.dart';
 import 'package:flutter_workshop/services/users.service.dart';
+import 'package:flutter_workshop/utillities/params_options.dart';
 
 class UserListScreen extends StatefulWidget {
   @override
@@ -20,7 +21,7 @@ class _UserListScreenState extends State<UserListScreen> {
           title: Text('ผู้ใช้'),
         ),
         body: FutureBuilder(
-          future: UsersService().getUsers(),
+          future: UsersService().getUsers(ParamsOption()),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.hasData) {
               List<UserModel> users = snapshot.data;
@@ -35,7 +36,7 @@ class _UserListScreenState extends State<UserListScreen> {
                   return Card(
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
-                      child: Text(users[index].username, style: TextStyle(fontSize: 22.0),),
+                      child: Text(users[index]!.username!, style: TextStyle(fontSize: 22.0),),
                     ),
                   );
                 },

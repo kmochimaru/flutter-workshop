@@ -38,7 +38,7 @@ class _LoginState extends State<Login> {
                     icon: Icon(Icons.person),
                     labelText: 'Username',
                   ),
-                  validator: (String value) => validators.validateIsEmpty(value),
+                  validator: (String? value) => validators.validateIsEmpty(value!),
                 ),
                 TextFormField(
                   controller: this._passwordController,
@@ -46,21 +46,26 @@ class _LoginState extends State<Login> {
                     icon: Icon(Icons.person),
                     labelText: 'Password',
                   ),
-                  validator: (String value) => validators.validateIsEmpty(value),
+                  validator: (String? value) => validators.validateIsEmpty(value!),
                 )
               ],
             ),
             RaisedButton(
               child: Text('Sign In'),
                 onPressed: () {
-                  this._formKey.currentState.save();
-                  if (this._formKey.currentState.validate()) {
+                  this._formKey.currentState!.save();
+                  print(this._formKey.currentState!.validate());
+                  if (this._formKey.currentState!.validate() == true) {
                     AuthService().onLogin(this._usernameController.text, this._passwordController.text).then((response) {
-                      AuthService().setToken(response);
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => TabScreen())
-                      );
+                      if(response != null) {
+                        AuthService().setToken(response);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => TabScreen())
+                        );
+                      } else {
+                        print('กรุณาตรวจสอบชื่อและรหัสผ่านอีกครั้ง');
+                      }
                     });
                   } else {
                     print('ยังไม่สมบูรณ์');

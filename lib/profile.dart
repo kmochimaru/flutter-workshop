@@ -12,7 +12,7 @@ class _ProfileState extends State<Profile> {
   @override
   void initState() {
     super.initState();
-    AuthService().decodeUserId().then((value) => print('User login =====> $value'));
+    // AuthService().decodeUserId().then((value) => print('User login =====> $value'));
   }
 
   @override
